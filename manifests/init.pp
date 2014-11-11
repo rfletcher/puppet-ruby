@@ -4,6 +4,10 @@
 #
 # === Parameters
 #
+# [*default*]
+#
+#   Boolean. Make this the system's default ruby version.
+#
 # [*version*]
 #
 #   String. The version to install.
@@ -24,9 +28,12 @@
 #
 class ruby (
   $version,
+  $default = false,
 ) {
   include rbenv
 
   rbenv::plugin { 'sstephenson/ruby-build': }
-  rbenv::build { $version: }
+  rbenv::build { $version:
+    global => $default,
+  }
 }
